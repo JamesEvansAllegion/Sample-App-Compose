@@ -142,6 +142,7 @@ suspend fun makeApiCall(movieTitle: String): ApiResponse {
 
 suspend fun launchApiCall(movieTitle: String, apiResponse: MutableState<String>, logs: MutableList<String>) {
     try {
+        print("Test 2")
         val response = makeApiCall(movieTitle)
         apiResponse.value = "Title: ${response.Title} \n Year: ${response.Year} \n IMDb Rating: ${response.imdbRating}"
         logs.add("API call made successfully.")
