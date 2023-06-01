@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -65,6 +66,13 @@ fun SearchApp() {
         LogsView(logs = logs)
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun SearchPreview() {
+    SearchApp()
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
