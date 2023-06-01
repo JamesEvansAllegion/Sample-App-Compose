@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.TopAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -29,8 +30,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,6 +51,21 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Composable
+fun TopBar() {
+    TopAppBar(
+        title = { Text(text = stringResource(R.string.app_name), fontSize = 18.sp) },
+        backgroundColor = Color.White,
+        contentColor = Color.Black
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TopBarPreview() {
+    TopBar()
+}
+
 
 @Composable
 fun BottomNavigationBar() {
@@ -57,7 +75,7 @@ fun BottomNavigationBar() {
         Screens.Info
     )
     BottomNavigation(
-        backgroundColor = Color.Black,
+        backgroundColor = Color.White,
         contentColor = Color.White
     ) {
         items.forEach { item ->
