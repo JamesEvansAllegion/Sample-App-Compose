@@ -11,6 +11,6 @@ import androidx.compose.ui.Modifier
 @Composable
 fun HomeScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Welcome to the Movie App", style = MaterialTheme.typography.bodyMedium)
+        Text(text = "Welcome to the my Sample App using the public IMDb API", style = MaterialTheme.typography.bodyMedium)
     }
 }
