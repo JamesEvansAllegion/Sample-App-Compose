@@ -1,4 +1,6 @@
-package com.example.sampleappcompose
+package com.example.sampleappcompose.ui.screens
+
+import com.example.sampleappcompose.R
 
 sealed class Screens(var route: String, var icon: Int, var title: String) {
     object Home : Screens("home", R.drawable.ic_home, "Home")

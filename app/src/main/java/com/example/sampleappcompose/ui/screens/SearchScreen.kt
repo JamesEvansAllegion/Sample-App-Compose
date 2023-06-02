@@ -1,4 +1,4 @@
-package com.example.sampleappcompose
+package com.example.sampleappcompose.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -145,6 +145,7 @@ suspend fun launchApiCall(movieTitle: String, apiResponse: MutableState<String>,
     try {
         val response = makeApiCall(movieTitle)
         apiResponse.value = "Title: ${response.Title} \n Year: ${response.Year} \n IMDb Rating: ${response.imdbRating}"
+        //apiResponse.value = "${makeApiCall(movieTitle)}"
         logs.add("API call made successfully.")
     } catch (e: Exception) {
         logs.add("API call failed: ${e.localizedMessage}")
