@@ -12,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,11 +45,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
+    val displayLogs = remember { mutableStateOf(false) }
     Scaffold(
-        topBar = { TopBar(navController) },
+        topBar = { TopBar(navController,displayLogs) },
         bottomBar = { BottomNavigationBar(navController) },
         content = { padding -> Box(modifier = Modifier.padding(padding)) {
-                Navigation(navController = navController)
+                Navigation(navController = navController, displayLogs)
             }
         }
     )
@@ -62,13 +64,13 @@ fun MainScreenPreview() {
 
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(navController: NavHostController, displayLogs: MutableState<Boolean>) {
     NavHost(navController, startDestination = Screens.Home.route) {
         composable(Screens.Home.route) {
             HomeScreen()
         }
         composable(Screens.Search.route) {
-            SearchScreen()
+            SearchScreen(displayLogs)
         }
         composable(Screens.Info.route) {
             InfoScreen()

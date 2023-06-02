@@ -21,7 +21,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,11 +31,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 @Composable
-fun SearchScreen() {
-    SearchApp()
+fun SearchScreen(displayLogs: MutableState<Boolean>) {
+    SearchApp(displayLogs)
 }
 @Composable
-fun SearchApp() {
+fun SearchApp(displayLogs: MutableState<Boolean>) {
     val logs = remember { mutableStateListOf<String>() }
     val apiResponse = remember { mutableStateOf("") }
     val requestData = remember { mutableStateOf("") }
@@ -63,15 +62,17 @@ fun SearchApp() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        LogsView(logs = logs)
+        if(displayLogs.value){
+            LogsView(logs = logs)
+        }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SearchPreview() {
-    SearchApp()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun SearchPreview() {
+//    SearchApp()
+//}
 
 
 @OptIn(ExperimentalMaterial3Api::class)
