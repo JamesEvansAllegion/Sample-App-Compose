@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-data class ApiResponse(val Title: String, val Year: String, val imdbRating: String)
+data class ApiResponse(val Title: String, val Year: String, val imdbRating: String, val Response: String)
 
 interface ApiService {
     @GET("/")
@@ -31,10 +31,14 @@ suspend fun makeApiCall(movieTitle: String): ApiResponse {
 suspend fun launchApiCall(movieTitle: String, apiResponse: MutableState<String>, logs: MutableList<String>) {
     try {
         val response = makeApiCall(movieTitle)
-        apiResponse.value = "Title: ${response.Title} \n Year: ${response.Year} \n IMDb Rating: ${response.imdbRating}"
-        //apiResponse.value = "${makeApiCall(movieTitle)}"
-        logs.add("API call made successfully.")
+        if(response.Response == "True") {
+            apiResponse.value = "Title: ${response.Title} \n Year: ${response.Year} \n IMDb Rating: ${response.imdbRating}"
+            logs.add("API call made successfully.")
+        }
+        else{
+            apiResponse.value = "Movie \"$movieTitle\" not found."
+        }
     } catch (e: Exception) {
-        logs.add("API call failed: ${e.localizedMessage}")
+        logs.add("API call failed due to error: ${e.localizedMessage}")
     }
 }
