@@ -22,6 +22,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.sampleappcompose.launchApiCall
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -119,36 +120,5 @@ fun LogsView(logs: List<String>) {
         LazyColumn {
             items(items = logs) { log -> Text(text = log) }
         }
-    }
-}
-
-data class ApiResponse(val Title: String, val Year: String, val imdbRating: String)
-
-interface ApiService {
-    @GET("/")
-    suspend fun makeApiCall(@Query("apikey") apikey: String, @Query("t") title: String): ApiResponse
-}
-
-suspend fun makeApiCall(movieTitle: String): ApiResponse {
-    val retrofit = Retrofit.Builder()
-        .baseUrl("http://www.omdbapi.com/") // OMDb API
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    val apiService = retrofit.create(ApiService::class.java)
-
-    return withContext(Dispatchers.IO) {
-        apiService.makeApiCall("6b938676", movieTitle)
-    }
-}
-
-suspend fun launchApiCall(movieTitle: String, apiResponse: MutableState<String>, logs: MutableList<String>) {
-    try {
-        val response = makeApiCall(movieTitle)
-        apiResponse.value = "Title: ${response.Title} \n Year: ${response.Year} \n IMDb Rating: ${response.imdbRating}"
-        //apiResponse.value = "${makeApiCall(movieTitle)}"
-        logs.add("API call made successfully.")
-    } catch (e: Exception) {
-        logs.add("API call failed: ${e.localizedMessage}")
     }
 }
